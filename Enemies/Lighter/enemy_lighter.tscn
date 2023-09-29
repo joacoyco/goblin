@@ -1,0 +1,105 @@
+[gd_scene load_steps=9 format=3 uid="uid://dqefpy447lnkt"]
+
+[ext_resource type="Script" path="res://Enemies/Lighter/enemy_lighter.gd" id="1_jqqqq"]
+[ext_resource type="Script" path="res://Enemies/Lighter/enemy_lighter_fsm.gd" id="2_21f1r"]
+[ext_resource type="Script" path="res://Enemies/Lighter/States/idle.gd" id="3_1rp14"]
+[ext_resource type="Script" path="res://Enemies/Lighter/States/move.gd" id="4_e25s0"]
+[ext_resource type="Script" path="res://Enemies/Lighter/States/fall.gd" id="5_p17rv"]
+[ext_resource type="Script" path="res://Enemies/Lighter/States/work.gd" id="6_essed"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_iewff"]
+size = Vector2(96, 104)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ue787"]
+radius = 16.0
+
+[node name="EnemyLighter" type="CharacterBody2D"]
+position = Vector2(128, -320)
+collision_layer = 256
+script = ExtResource("1_jqqqq")
+
+[node name="Rig" type="Node2D" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="Rig"]
+offset_left = -48.0
+offset_top = -104.0
+offset_right = 48.0
+color = Color(0.792157, 0.223529, 0.45098, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(0, -52)
+shape = SubResource("RectangleShape2D_iewff")
+
+[node name="FSM" type="Node" parent="." node_paths=PackedStringArray("starting_state")]
+script = ExtResource("2_21f1r")
+starting_state = NodePath("Idle")
+
+[node name="Idle" type="Node" parent="FSM"]
+script = ExtResource("3_1rp14")
+
+[node name="Move" type="Node" parent="FSM"]
+script = ExtResource("4_e25s0")
+
+[node name="Fall" type="Node" parent="FSM"]
+script = ExtResource("5_p17rv")
+
+[node name="Work" type="Node" parent="FSM"]
+script = ExtResource("6_essed")
+
+[node name="WorkTimer" type="Timer" parent="FSM/Work"]
+wait_time = 2.0
+one_shot = true
+
+[node name="Label_fsm" type="Label" parent="."]
+offset_left = -64.0
+offset_top = -168.0
+offset_right = 64.0
+offset_bottom = -142.0
+text = "FSM"
+horizontal_alignment = 1
+
+[node name="Label" type="Label" parent="."]
+visible = false
+offset_left = -64.0
+offset_top = -192.0
+offset_right = 64.0
+offset_bottom = -166.0
+text = "Label"
+horizontal_alignment = 1
+
+[node name="Detectors" type="Node2D" parent="."]
+visible = false
+
+[node name="GroundDetectorLeft" type="RayCast2D" parent="Detectors"]
+position = Vector2(-96, -16)
+target_position = Vector2(0, 40)
+
+[node name="GroundDetectorRight" type="RayCast2D" parent="Detectors"]
+position = Vector2(96, -16)
+target_position = Vector2(0, 40)
+
+[node name="WallDetectorLeft" type="RayCast2D" parent="Detectors"]
+position = Vector2(-64, -48)
+rotation = 1.57079
+target_position = Vector2(-0.000305176, 48)
+
+[node name="WallDetectorRight" type="RayCast2D" parent="Detectors"]
+position = Vector2(64, -48)
+rotation = -1.57079
+target_position = Vector2(0.000305176, 48)
+
+[node name="RedirectionTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[node name="Area2D" type="Area2D" parent="."]
+visible = false
+position = Vector2(0, -128)
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_ue787")
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]

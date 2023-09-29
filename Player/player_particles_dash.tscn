@@ -1,0 +1,43 @@
+[gd_scene load_steps=5 format=3 uid="uid://qyhfb7jcwjhx"]
+
+[ext_resource type="Script" path="res://Player/player_particles_dash.gd" id="1_qevhp"]
+
+[sub_resource type="Curve" id="Curve_kksut"]
+_data = [Vector2(0, 1), 0.0, -1.35561, 0, 0, Vector2(0.993769, 0), -0.682369, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_u3583"]
+curve = SubResource("Curve_kksut")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_whjqb"]
+lifetime_randomness = 0.58
+emission_shape = 1
+emission_sphere_radius = 25.0
+particle_flag_disable_z = true
+direction = Vector3(0, 1, 0)
+gravity = Vector3(0, 10, 0)
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+linear_accel_min = -79.88
+linear_accel_max = -58.95
+damping_min = 11.0
+damping_max = 22.0
+angle_min = -45.0
+angle_max = 45.0
+scale_min = 2.0
+scale_max = 4.0
+scale_curve = SubResource("CurveTexture_u3583")
+turbulence_noise_scale = 3.0
+turbulence_influence_min = 0.0
+
+[node name="ParticlesDash" type="Node2D"]
+modulate = Color(1, 0.47451, 0.439216, 1)
+script = ExtResource("1_qevhp")
+
+[node name="ParticlesDash" type="GPUParticles2D" parent="."]
+z_index = -1
+position = Vector2(0, -24)
+amount = 400
+process_material = SubResource("ParticleProcessMaterial_whjqb")
+lifetime = 2.0
+fixed_fps = 90

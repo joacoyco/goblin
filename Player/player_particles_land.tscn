@@ -1,0 +1,56 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://Player/player_particles_land.gd" id="1_indp7"]
+
+[sub_resource type="Curve" id="Curve_kksut"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.993769, 0), -1.9929, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_u3583"]
+curve = SubResource("Curve_kksut")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_cg3fn"]
+lifetime_randomness = 0.3
+emission_shape = 3
+emission_box_extents = Vector3(32, 0, 0)
+particle_flag_disable_z = true
+direction = Vector3(0.5, -0.3, 0)
+spread = 12.0
+gravity = Vector3(0, 120, 0)
+initial_velocity_min = 80.0
+initial_velocity_max = 90.0
+angular_velocity_max = 720.0
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+angle_min = -45.0
+angle_max = 45.0
+scale_min = 4.0
+scale_max = 9.0
+scale_curve = SubResource("CurveTexture_u3583")
+turbulence_noise_scale = 3.0
+turbulence_influence_min = 0.0
+
+[node name="ParticlesLand" type="Node2D"]
+modulate = Color(0.6, 0.6, 0.6, 1)
+script = ExtResource("1_indp7")
+
+[node name="ParticlesLandR" type="GPUParticles2D" parent="."]
+position = Vector2(16, 0)
+emitting = false
+amount = 4
+process_material = SubResource("ParticleProcessMaterial_cg3fn")
+lifetime = 0.5
+one_shot = true
+speed_scale = 2.0
+explosiveness = 1.0
+
+[node name="ParticlesLandL" type="GPUParticles2D" parent="."]
+position = Vector2(-24, 0)
+rotation = 3.14159
+scale = Vector2(1, -1)
+emitting = false
+amount = 4
+process_material = SubResource("ParticleProcessMaterial_cg3fn")
+one_shot = true
+speed_scale = 2.0
+explosiveness = 1.0

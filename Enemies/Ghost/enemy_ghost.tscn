@@ -1,0 +1,65 @@
+[gd_scene load_steps=7 format=3 uid="uid://evxja2sb4wke"]
+
+[ext_resource type="Script" path="res://Enemies/Ghost/enemy_ghost.gd" id="1_dky61"]
+[ext_resource type="Texture2D" uid="uid://b1aq21k5kgtr0" path="res://Art/lamp.png" id="2_c2kjf"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_iewff"]
+size = Vector2(96, 104)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_fwe5m"]
+radius = 32.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ue787"]
+radius = 25.1794
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_i7lle"]
+radius = 16.0
+
+[node name="EnemyGhost" type="CharacterBody2D"]
+position = Vector2(128, -320)
+collision_layer = 256
+script = ExtResource("1_dky61")
+
+[node name="Rig" type="Node2D" parent="."]
+
+[node name="Lamp" type="Sprite2D" parent="Rig"]
+modulate = Color(1, 1, 1, 0.466667)
+scale = Vector2(1.73438, 1.73438)
+texture = ExtResource("2_c2kjf")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(0, -52)
+shape = SubResource("RectangleShape2D_iewff")
+
+[node name="AreaCollision" type="Area2D" parent="."]
+visible = false
+show_behind_parent = true
+collision_layer = 0
+collision_mask = 1024
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AreaCollision"]
+position = Vector2(72, 0)
+shape = SubResource("CircleShape2D_fwe5m")
+debug_color = Color(0.494118, 0.576471, 0.235294, 0.419608)
+
+[node name="AreaLamps" type="Area2D" parent="."]
+visible = false
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AreaLamps"]
+shape = SubResource("CircleShape2D_ue787")
+
+[node name="AreaDamage" type="Area2D" parent="."]
+visible = false
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AreaDamage"]
+shape = SubResource("CircleShape2D_i7lle")
+debug_color = Color(0.87451, 0.329412, 0.278431, 0.419608)
+
+[connection signal="body_entered" from="AreaCollision" to="." method="_on_area_collision_body_entered"]
+[connection signal="area_entered" from="AreaLamps" to="." method="_on_area_lamps_area_entered"]
+[connection signal="body_entered" from="AreaDamage" to="." method="_on_area_damage_body_entered"]

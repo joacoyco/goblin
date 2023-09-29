@@ -1,0 +1,47 @@
+[gd_scene load_steps=5 format=3 uid="uid://1q1lqt21hxvn"]
+
+[ext_resource type="Script" path="res://Player/player_particles_jump.gd" id="1_cjm34"]
+
+[sub_resource type="Curve" id="Curve_kksut"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.993769, 0), -1.9929, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_u3583"]
+curve = SubResource("Curve_kksut")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_whjqb"]
+lifetime_randomness = 0.58
+emission_shape = 3
+emission_box_extents = Vector3(0, 0, 0)
+particle_flag_disable_z = true
+direction = Vector3(0, 1, 0)
+gravity = Vector3(0, 10, 0)
+initial_velocity_min = 40.0
+initial_velocity_max = 80.0
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+linear_accel_min = -79.88
+linear_accel_max = -58.95
+damping_min = 11.0
+damping_max = 22.0
+angle_min = -45.0
+angle_max = 45.0
+scale_min = 4.0
+scale_max = 9.0
+scale_curve = SubResource("CurveTexture_u3583")
+turbulence_noise_scale = 3.0
+turbulence_influence_min = 0.0
+
+[node name="ParticlesJump" type="Node2D"]
+modulate = Color(0.560784, 0.560784, 0.560784, 1)
+script = ExtResource("1_cjm34")
+
+[node name="ParticlesJump" type="GPUParticles2D" parent="."]
+emitting = false
+amount = 4
+process_material = SubResource("ParticleProcessMaterial_whjqb")
+lifetime = 2.0
+one_shot = true
+preprocess = 0.2
+speed_scale = 1.5
+explosiveness = 0.75

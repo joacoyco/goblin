@@ -1,0 +1,243 @@
+[gd_scene load_steps=19 format=3 uid="uid://boumxu4dqexq7"]
+
+[ext_resource type="Script" path="res://Player/player.gd" id="1_7nleu"]
+[ext_resource type="Script" path="res://Player/player_fsm.gd" id="2_531as"]
+[ext_resource type="Script" path="res://Player/States/idle.gd" id="3_c626w"]
+[ext_resource type="Script" path="res://Player/States/move.gd" id="4_c138p"]
+[ext_resource type="Script" path="res://Player/States/jump.gd" id="5_np3ym"]
+[ext_resource type="Script" path="res://Player/States/doublejump.gd" id="6_3tye6"]
+[ext_resource type="Script" path="res://Player/States/fall.gd" id="6_3vcqa"]
+[ext_resource type="Script" path="res://Player/States/dash.gd" id="9_kxlmu"]
+[ext_resource type="Script" path="res://Player/States/stairs.gd" id="9_nbhvm"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_jds0o"]
+radius = 24.0
+height = 64.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_icqbp"]
+size = Vector2(16, 40)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mp4j0"]
+size = Vector2(16, 16)
+
+[sub_resource type="Animation" id="Animation_wp11o"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Rig:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Rig:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_pqyf8"]
+resource_name = "die"
+length = 0.1
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Rig:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
+"update": 0,
+"values": []
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Rig:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(0.210224, 1, 0.210224),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(0.0980392, 0.0980392, 0.0980392, 0.568627), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_fptr0"]
+resource_name = "doublejump"
+step = 0.0333333
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Rig:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0666667, 0.333333),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1.2, 0.6), Vector2(0.9, 1.2), Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_5e44h"]
+resource_name = "jump"
+step = 0.0333333
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Rig:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.333333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0.8, 1.5), Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_0fd3y"]
+resource_name = "land"
+step = 0.0333333
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Rig:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0333333, 0.133333, 0.333333),
+"transitions": PackedFloat32Array(1.86607, 3.03143, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.2, 0.8), Vector2(1, 1.1), Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_g4dsk"]
+_data = {
+"RESET": SubResource("Animation_wp11o"),
+"die": SubResource("Animation_pqyf8"),
+"doublejump": SubResource("Animation_fptr0"),
+"jump": SubResource("Animation_5e44h"),
+"land": SubResource("Animation_0fd3y")
+}
+
+[node name="Player" type="CharacterBody2D"]
+collision_layer = 2
+script = ExtResource("1_7nleu")
+
+[node name="Rig" type="Node2D" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="Rig"]
+light_mask = 0
+offset_left = -24.0
+offset_top = -64.0
+offset_right = 24.0
+color = Color(0.788235, 0.788235, 0.788235, 1)
+
+[node name="DashColor" type="ColorRect" parent="Rig"]
+visible = false
+light_mask = 0
+offset_left = -24.0
+offset_top = -64.0
+offset_right = 24.0
+color = Color(0.788235, 0.384314, 0.498039, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(0, -32)
+shape = SubResource("CapsuleShape2D_jds0o")
+debug_color = Color(0.94902, 0.792157, 0, 0.419608)
+
+[node name="Label" type="Label" parent="."]
+visible = false
+offset_left = -112.0
+offset_top = -160.0
+offset_right = 112.0
+offset_bottom = -123.0
+theme_override_font_sizes/font_size = 24
+text = "Label"
+horizontal_alignment = 1
+
+[node name="Label_FSM" type="Label" parent="."]
+visible = false
+offset_left = -112.0
+offset_top = -112.0
+offset_right = 112.0
+offset_bottom = -75.0
+theme_override_font_sizes/font_size = 24
+text = "FSM"
+horizontal_alignment = 1
+
+[node name="StairsDetectorUp" type="Area2D" parent="."]
+visible = false
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StairsDetectorUp"]
+position = Vector2(0, -52)
+shape = SubResource("RectangleShape2D_icqbp")
+
+[node name="StairsDetectorDown" type="Area2D" parent="."]
+visible = false
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StairsDetectorDown"]
+position = Vector2(0, -16)
+shape = SubResource("RectangleShape2D_mp4j0")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "RESET"
+libraries = {
+"": SubResource("AnimationLibrary_g4dsk")
+}
+
+[node name="FSM" type="Node" parent="." node_paths=PackedStringArray("starting_state")]
+script = ExtResource("2_531as")
+starting_state = NodePath("Idle")
+
+[node name="Idle" type="Node" parent="FSM"]
+script = ExtResource("3_c626w")
+
+[node name="Move" type="Node" parent="FSM"]
+script = ExtResource("4_c138p")
+
+[node name="Jump" type="Node" parent="FSM"]
+script = ExtResource("5_np3ym")
+
+[node name="Doublejump" type="Node" parent="FSM"]
+script = ExtResource("6_3tye6")
+
+[node name="Fall" type="Node" parent="FSM"]
+script = ExtResource("6_3vcqa")
+
+[node name="Stairs" type="Node" parent="FSM"]
+script = ExtResource("9_nbhvm")
+
+[node name="Dash" type="Node" parent="FSM"]
+script = ExtResource("9_kxlmu")
+
+[node name="Cooldown" type="Timer" parent="FSM/Dash"]
+wait_time = 0.1
+one_shot = true
+
+[node name="RespawnTimer" type="Timer" parent="."]
+wait_time = 0.2
+one_shot = true
+
+[connection signal="area_entered" from="StairsDetectorUp" to="." method="_on_stairs_detector_up_area_entered"]
+[connection signal="area_exited" from="StairsDetectorUp" to="." method="_on_stairs_detector_up_area_exited"]
+[connection signal="area_entered" from="StairsDetectorDown" to="." method="_on_stairs_detector_down_area_entered"]
+[connection signal="area_exited" from="StairsDetectorDown" to="." method="_on_stairs_detector_down_area_exited"]

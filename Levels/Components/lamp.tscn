@@ -1,0 +1,268 @@
+[gd_scene load_steps=13 format=3 uid="uid://dhtq6c46q0qb3"]
+
+[ext_resource type="Script" path="res://Levels/Components/lamp.gd" id="1_4opmo"]
+[ext_resource type="Texture2D" uid="uid://ny2x4qnivnq4" path="res://Art/lamp_glow.png" id="2_5a4ds"]
+[ext_resource type="Texture2D" uid="uid://b1aq21k5kgtr0" path="res://Art/lamp.png" id="2_25d6h"]
+[ext_resource type="Texture2D" uid="uid://c5i2b5wo30h73" path="res://Art/lamp_light.png" id="5_wmo15"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_a3pgi"]
+radius = 56.5685
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7g44c"]
+radius = 16.0
+
+[sub_resource type="Animation" id="Animation_sdta7"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite/Lamp:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite/LampGlow:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite/LampGlow:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_xmbup"]
+resource_name = "off"
+length = 0.333337
+step = 0.0333333
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite/Lamp:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0.235294, 0.25098, 0.505882, 1), Color(0.156863, 0.156863, 0.156863, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite/LampGlow:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0.176, 0.176)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite/LampGlow:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0.478431), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_mjs72"]
+resource_name = "off_quick"
+length = 0.333337
+step = 0.0333333
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite/Lamp:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.156863, 0.156863, 0.156863, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite/LampGlow:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.176, 0.176)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite/LampGlow:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_6j5md"]
+resource_name = "on"
+step = 0.0333333
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite/Lamp:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0333333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0.972549, 0.847059, 0.478431, 1), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite/LampGlow:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.333333),
+"transitions": PackedFloat32Array(0.307786, 1),
+"update": 0,
+"values": [Vector2(0.5, 0.5), Vector2(1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite/LampGlow:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_6y17e"]
+resource_name = "on_quick"
+step = 0.0333333
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite/Lamp:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite/LampGlow:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite/LampGlow:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_lhf7a"]
+_data = {
+"RESET": SubResource("Animation_sdta7"),
+"off": SubResource("Animation_xmbup"),
+"off_quick": SubResource("Animation_mjs72"),
+"on": SubResource("Animation_6j5md"),
+"on_quick": SubResource("Animation_6y17e")
+}
+
+[node name="Lamp" type="Node2D"]
+script = ExtResource("1_4opmo")
+
+[node name="Sprite" type="Node2D" parent="."]
+
+[node name="LampGlow" type="Sprite2D" parent="Sprite"]
+light_mask = 0
+texture = ExtResource("2_5a4ds")
+
+[node name="Lamp" type="Sprite2D" parent="Sprite"]
+light_mask = 0
+texture = ExtResource("2_25d6h")
+
+[node name="AreaPlayer" type="Area2D" parent="."]
+visible = false
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AreaPlayer"]
+shape = SubResource("CircleShape2D_a3pgi")
+
+[node name="AreaEnemy" type="Area2D" parent="."]
+visible = false
+collision_layer = 4
+collision_mask = 256
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AreaEnemy"]
+shape = SubResource("CircleShape2D_7g44c")
+debug_color = Color(0.964706, 0, 0.501961, 0.419608)
+
+[node name="AnimationPlayerLight" type="AnimationPlayer" parent="."]
+autoplay = "off_quick"
+libraries = {
+"": SubResource("AnimationLibrary_lhf7a")
+}
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+visible = false
+shadow_enabled = true
+texture = ExtResource("5_wmo15")
+
+[connection signal="body_shape_entered" from="AreaPlayer" to="." method="_on_area_2d_body_shape_entered"]
+[connection signal="body_shape_exited" from="AreaPlayer" to="." method="_on_area_2d_body_shape_exited"]
+[connection signal="body_shape_entered" from="AreaEnemy" to="." method="_on_area_2d_body_shape_entered"]
+[connection signal="body_shape_exited" from="AreaEnemy" to="." method="_on_area_2d_body_shape_exited"]

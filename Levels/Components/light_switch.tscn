@@ -1,0 +1,40 @@
+[gd_scene load_steps=3 format=3 uid="uid://bwutnlh15ildk"]
+
+[ext_resource type="Script" path="res://Levels/Components/light_switch.gd" id="1_qp4to"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_6v05g"]
+radius = 88.0
+
+[node name="LightSwitch" type="Node2D"]
+script = ExtResource("1_qp4to")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_left = -24.0
+offset_top = -24.0
+offset_right = 24.0
+offset_bottom = 24.0
+color = Color(0.466667, 0.466667, 0.466667, 1)
+
+[node name="Lever" type="Node2D" parent="."]
+
+[node name="ColorRect2" type="ColorRect" parent="Lever"]
+offset_left = -8.0
+offset_top = -24.0
+offset_right = 8.0
+
+[node name="ColorRect3" type="ColorRect" parent="Lever"]
+offset_left = -16.0
+offset_top = -32.0
+offset_right = 16.0
+offset_bottom = -24.0
+
+[node name="AreaPlayer" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AreaPlayer"]
+shape = SubResource("CircleShape2D_6v05g")
+debug_color = Color(0.870588, 0.870588, 0.870588, 0.188235)
+
+[connection signal="body_entered" from="AreaPlayer" to="." method="_on_area_player_body_entered"]
+[connection signal="body_exited" from="AreaPlayer" to="." method="_on_area_player_body_exited"]
