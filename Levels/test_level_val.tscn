@@ -636,7 +636,7 @@ position = Vector2(256, -448)
 group_id = 1
 
 [node name="Lamp9" parent="Lamps" instance=ExtResource("4_c1xvf")]
-position = Vector2(-128, -448)
+position = Vector2(-168, -442)
 group_id = 1
 
 [node name="Lamp8" parent="Lamps" instance=ExtResource("4_c1xvf")]
